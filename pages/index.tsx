@@ -128,13 +128,16 @@ export default function Home({
       <>
         <div className="bg-white shadow sm:rounded-lg">
           <div className="px-4 py-5 sm:p-6">
-            <h3 className="mb-4 text-lg font-medium leading-6 text-gray-900">
-              Scan this QR Code with your mobile wallet
+            <h3 className="mb-4 text-xl font-semibold leading-6 text-yellow-500">
+              Scan this QR code with your Trudenty wallet<sup className="text-gray-900">**</sup> to get your credentials for <span className="font-bold">Know Your Customer</span> proof.
             </h3>
             <div className="prose">
+              <div className="text-sm text-gray-500">
+                <p><sup>**</sup> To launch the wallet app, you need to use <a href="https://expo.dev/client" target="_blank">Expo Go</a> after <a href="mailto:contact@trudenty.com">receiving our invitation</a>.</p>
+              </div>
               <QRCode
                 value={JSON.stringify(challenge)}
-                className="w-48 h-48"
+                className="w-80 h-80"
                 renderAs="svg"
               />
               <pre>{JSON.stringify(challenge, null, 4)}</pre>
@@ -144,7 +147,7 @@ export default function Home({
                   e.preventDefault()
                   simulateScan(challenge)
                 }}
-                className="inline-flex items-center px-4 py-2 font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+                className="inline-flex items-center px-4 py-2 font-medium text-white bg-yellow-500 border border-transparent rounded-md shadow-sm hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 sm:text-sm"
               >
                 Simulate Scanning
               </button>
@@ -167,7 +170,7 @@ export default function Home({
       <>
         <div className="bg-white shadow sm:rounded-lg">
           <div className="px-4 py-5 sm:p-6">
-            <h3 className="text-lg font-medium leading-6 text-gray-900">
+            <h3 className="text-xl font-semibold leading-6 text-yellow-500">
               {title}
             </h3>
             <div className="max-w-xl mt-2 text-sm text-gray-500">
@@ -180,7 +183,7 @@ export default function Home({
                   e.preventDefault()
                   applyForCredential(response)
                 }}
-                className="inline-flex items-center px-4 py-2 font-medium text-white bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+                className="inline-flex items-center px-4 py-2 font-medium text-white bg-yellow-500 border border-transparent rounded-md shadow-sm hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 sm:text-sm"
               >
                 Request Credential
               </button>
@@ -190,7 +193,7 @@ export default function Home({
 
         <div className="prose" style={{ maxWidth: "100%" }}>
           <h2>Credential Offer</h2>
-          <p className="max-w-prose">
+          <p>
             After fetching the `challengeTokenUrl`, we are returned a Credential
             Offer. It is a wrapper around a Credential Manifest, with
             supplementary properties, most important of which is the `reply_url`
@@ -214,12 +217,10 @@ export default function Home({
       <>
         <div className="prose" style={{ maxWidth: "100%" }}>
           <h1>Request</h1>
-          <p className="max-w-prose">
+          <p>
             To request a credential, a client must submit a Credential
             Application. We use did-jwt-vc to encode our data as JWTs so the
             request is an opaque string. This is the decoded version.
-          </p>
-          <p className="max-w-prose">
             A Credential Application may require submitting additional
             credentials, however they are not required for the KYCAMLAttestion.
             However, the signed Verifiable Presentation does demonstrate
@@ -229,7 +230,7 @@ export default function Home({
           </p>
           <pre>{JSON.stringify(credentialApplication, null, 4)}</pre>
           <h1>Response</h1>
-          <p className="max-w-prose">
+          <p>
             According to the Presentation Exchange spec, the server will respond
             with a Verifiable Presentation. We use did-jwt-vc to encode our data
             as JWTs so the response is mostly opaque. After decoding it, we can
@@ -257,25 +258,16 @@ export default function Home({
       </Head>
 
       <main className="w-full px-20 space-y-8">
-        <div className="prose">
-          <h1>Issuance Demo</h1>
+        <div className="prose max-w-fit">
+          <h1>Credentials Issuance</h1>
           <p>
-            This is a simple example of how to issue a credential to a
-            self-custodied identity wallet.
-          </p>
-          <p>
-            The page first prompts a compatible mobile wallet to scan a QR code.
-            The data encoded includes a JWT to help tie identity of the mobile
-            wallet to that of the current authenticated browser session.
-          </p>
-          <p>
+            This is a simple example of how to issue a credential to a self-custodied identity wallet.
+            The page first prompts a compatible mobile wallet to scan a QR code. The data encoded includes a JWT to help tie identity of the mobile wallet to that of the current authenticated browser session.
             The returned{" "}
             <a href="https://identity.foundation/credential-manifest/">
               Credential Manifest
             </a>{" "}
             can be processed and show the user what is being requested.
-          </p>
-          <p>
             Finally, we use{" "}
             <a href="https://identity.foundation/presentation-exchange">
               Presentation Exchange
